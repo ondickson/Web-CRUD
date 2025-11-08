@@ -1,0 +1,76 @@
+import express from 'express';
+import cors from 'cors';
+import { ENV } from './env';
+import { prisma } from './prisma';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import { z } from 'zod';
+import { auth } from './auth';
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+const creds = z.object({ email: z.string().email(), password: z.string().min(6) });
+
+app.post('/auth/register', async (req, res) => {
+  const parsed = creds.safeParse(req.body);
+  if (!parsed.success) return res.status(400).json({ error: 'Invalid payload' });
+  const { email, password } = parsed.data;
+  const existing = await prisma.user.findUnique({ where: { email } });
+  if (existing) return res.status(409).json({ error: 'Email taken' });
+  const hash = await bcrypt.hash(password, 10);
+  const user = await prisma.user.create({ data: { email, password: hash } });
+  const token = jwt.sign({ sub: user.id, email: user.email }, ENV.JWT_SECRET, { expiresIn: '7d' });
+  res.json({ token });
+});
+
+app.post('/auth/login', async (req, res) => {
+  const parsed = creds.safeParse(req.body);
+  if (!parsed.success) return res.status(400).json({ error: 'Invalid payload' });
+  const { email, password } = parsed.data;
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (!user) return res.status(401).json({ error: 'Invalid credentials' });
+  const ok = await bcrypt.compare(password, user.password);
+  if (!ok) return res.status(401).json({ error: 'Invalid credentials' });
+  const token = jwt.sign({ sub: user.id, email: user.email }, ENV.JWT_SECRET, { expiresIn: '7d' });
+  res.json({ token });
+});
+
+// Simple CRUD for Items (owned by user)
+app.get('/items', auth, async (req, res) => {
+  const userId = (req as any).user.sub as string;
+  const items = await prisma.item.findMany({ where: { userId }, orderBy: { createdAt: 'desc' } });
+  res.json(items);
+});
+
+app.post('/items', auth, async (req, res) => {
+  const userId = (req as any).user.sub as string;
+  const title = String(req.body?.title || '').trim();
+  if (!title) return res.status(400).json({ error: 'title is required' });
+  const item = await prisma.item.create({ data: { title, userId } });
+  res.status(201).json(item);
+});
+
+app.put('/items/:id', auth, async (req, res) => {
+  const userId = (req as any).user.sub as string;
+  const { id } = req.params;
+  const title = String(req.body?.title || '').trim();
+  const exists = await prisma.item.findFirst({ where: { id, userId } });
+  if (!exists) return res.status(404).json({ error: 'Not found' });
+  const item = await prisma.item.update({ where: { id }, data: { title } });
+  res.json(item);
+});
+
+app.delete('/items/:id', auth, async (req, res) => {
+  const userId = (req as any).user.sub as string;
+  const { id } = req.params;
+  const exists = await prisma.item.findFirst({ where: { id, userId } });
+  if (!exists) return res.status(404).json({ error: 'Not found' });
+  await prisma.item.delete({ where: { id } });
+  res.status(204).send();
+});
+
+app.get('/', (_req, res) => res.json({ ok: true }));
+
+app.listen(ENV.PORT, () => console.log(`API on :${ENV.PORT}`));
