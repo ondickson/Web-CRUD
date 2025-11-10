@@ -1,3 +1,4 @@
+// backend/src/index.ts
 import express from 'express';
 import cors from 'cors';
 import { ENV } from './env';
@@ -39,37 +40,49 @@ app.post('/auth/login', async (req, res) => {
 
 // Simple CRUD for Items (owned by user)
 app.get('/items', auth, async (req, res) => {
-  const userId = (req as any).user.sub as string;
-  const items = await prisma.item.findMany({ where: { userId }, orderBy: { createdAt: 'desc' } });
+  const userId = Number((req as any).user.sub); // userId is Int
+  const items = await prisma.item.findMany({
+    where: { userId },
+    orderBy: { createdAt: 'desc' },
+  });
   res.json(items);
 });
 
 app.post('/items', auth, async (req, res) => {
-  const userId = (req as any).user.sub as string;
-  const title = String(req.body?.title || '').trim();
-  if (!title) return res.status(400).json({ error: 'title is required' });
-  const item = await prisma.item.create({ data: { title, userId } });
+  const userId = Number((req as any).user.sub);
+  const name = String(req.body?.name || '').trim();
+  if (!name) return res.status(400).json({ error: 'name is required' });
+
+  const item = await prisma.item.create({ data: { name, userId } });
   res.status(201).json(item);
 });
 
 app.put('/items/:id', auth, async (req, res) => {
-  const userId = (req as any).user.sub as string;
-  const { id } = req.params;
-  const title = String(req.body?.title || '').trim();
+  const userId = Number((req as any).user.sub);
+  const id = Number(req.params.id);
+  const name = String(req.body?.name || '').trim();
+
   const exists = await prisma.item.findFirst({ where: { id, userId } });
   if (!exists) return res.status(404).json({ error: 'Not found' });
-  const item = await prisma.item.update({ where: { id }, data: { title } });
+
+  const item = await prisma.item.update({
+    where: { id },
+    data: { name },
+  });
   res.json(item);
 });
 
 app.delete('/items/:id', auth, async (req, res) => {
-  const userId = (req as any).user.sub as string;
-  const { id } = req.params;
+  const userId = Number((req as any).user.sub);
+  const id = Number(req.params.id);
+
   const exists = await prisma.item.findFirst({ where: { id, userId } });
   if (!exists) return res.status(404).json({ error: 'Not found' });
+
   await prisma.item.delete({ where: { id } });
   res.status(204).send();
 });
+
 
 app.get('/', (_req, res) => res.json({ ok: true }));
 
