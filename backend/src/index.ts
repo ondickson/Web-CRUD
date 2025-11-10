@@ -9,7 +9,8 @@ import { z } from 'zod';
 import { auth } from './auth';
 
 const app = express();
-app.use(cors());
+// app.use(cors());
+app.use(cors({ origin: ENV.CORS_ORIGIN }));
 app.use(express.json());
 
 const creds = z.object({ email: z.string().email(), password: z.string().min(6) });
@@ -50,27 +51,41 @@ app.get('/items', auth, async (req, res) => {
 
 app.post('/items', auth, async (req, res) => {
   const userId = Number((req as any).user.sub);
-  const name = String(req.body?.name || '').trim();
+
+  const name = typeof req.body?.name === 'string' ? req.body.name.trim() : '';
+  const description =
+    typeof req.body?.description === 'string' ? req.body.description.trim() : null;
+
   if (!name) return res.status(400).json({ error: 'name is required' });
 
-  const item = await prisma.item.create({ data: { name, userId } });
+  const item = await prisma.item.create({
+    data: { name, description, userId },
+  });
+
   res.status(201).json(item);
 });
 
 app.put('/items/:id', auth, async (req, res) => {
   const userId = Number((req as any).user.sub);
   const id = Number(req.params.id);
-  const name = String(req.body?.name || '').trim();
+
+  const name = typeof req.body?.name === 'string' ? req.body.name.trim() : '';
+  const description =
+    typeof req.body?.description === 'string' ? req.body.description.trim() : null;
+
+  if (!name) return res.status(400).json({ error: 'name is required' });
 
   const exists = await prisma.item.findFirst({ where: { id, userId } });
   if (!exists) return res.status(404).json({ error: 'Not found' });
 
   const item = await prisma.item.update({
     where: { id },
-    data: { name },
+    data: { name, description },
   });
+
   res.json(item);
 });
+
 
 app.delete('/items/:id', auth, async (req, res) => {
   const userId = Number((req as any).user.sub);
