@@ -13,7 +13,9 @@ const app = express();
 app.use(cors({ origin: ENV.CORS_ORIGIN }));
 app.use(express.json());
 
+console.log('DB_URL:', process.env.DATABASE_URL);
 const creds = z.object({ email: z.string().email(), password: z.string().min(6) });
+
 
 app.post('/auth/register', async (req, res) => {
   const parsed = creds.safeParse(req.body);
@@ -40,11 +42,10 @@ app.post('/auth/login', async (req, res) => {
 });
 
 // Simple CRUD for Items (owned by user)
-app.get('/items', auth, async (req, res) => {
-  const userId = Number((req as any).user.sub); // userId is Int
+app.get('/public/items', async (_req, res) => {
   const items = await prisma.item.findMany({
-    where: { userId },
     orderBy: { createdAt: 'desc' },
+    take: 20,
   });
   res.json(items);
 });

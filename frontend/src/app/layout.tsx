@@ -2,11 +2,11 @@
 import './globals.scss';
 import React from 'react';
 
-export const metadata = { title: 'Web CRUD', description: 'Simple CRUD demo' };
+export const metadata = { title: 'EfieNow', description: 'Your trusted platform for houses and apartments for rent in Ghana. Browse thousands of verified long-term rentals and secure your next home in Accra, Tema, and major cities with ease and confidence.' };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>{children}</body>
     </html>
   );

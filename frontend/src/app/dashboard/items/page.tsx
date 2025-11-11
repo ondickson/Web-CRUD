@@ -1,8 +1,6 @@
 // src/app/dashboard/items/page.tsx
 'use client';
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import './items.css';
 
 const API = process.env.NEXT_PUBLIC_API_URL;
 
@@ -34,16 +32,7 @@ export default function Items() {
 
   return (
     <main style={{ padding: 24 }}>
-      <header className="dashboard-header">
-        <Link href="http://172.17.0.1:3000/">EfieNow</Link>
-        <div className="nav-links">
-          <Link href="/auth">Login</Link>
-          <Link href="/register" className="register-btn">Register</Link>
-        </div>
-      </header>
-
-      <section>
-        <h1>Your Items</h1>
+      <h1>User's Items</h1>
       <div>
         <input value={title} onChange={e=>setTitle(e.target.value)} placeholder="new title" />
         <button onClick={add}>Add</button>
@@ -55,7 +44,6 @@ export default function Items() {
           </li>
         ))}
       </ul>
-      </section>
     </main>
   );
 }

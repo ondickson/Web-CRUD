@@ -1,0 +1,65 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ .dashboard {
+  /* border: red 2px solid; */
+  padding: 2rem;
+  width: 100%;
+  font-family: system-ui, sans-serif;
+}
+
+
+.dashboard-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-links a {
+  margin-right: 1rem;
+  text-decoration: none;
+  color: #2E382E;
+}
+
+.register-btn {
+  background: #2E382E;
+  color: white !important;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.register-btn:hover{
+  background-color: #50C9CE;
+  color: #2E382E !important;
+  transition: ease-in-out 0.3s;
+  cursor: pointer;
+}
+
+.dashboard-section {
+  margin-top: 2rem;
+}
+
+.item-list {
+  list-style: none;
+  padding: 0;
+}
+
+.item-card {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.item-card p {
+  margin-top: 4px;
+  color: #666;
+}
+
+.item-card small {
+  color: #999;
+}
