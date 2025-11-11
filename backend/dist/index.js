@@ -13,13 +13,15 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const zod_1 = require("zod");
 const auth_1 = require("./auth");
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)());
+// app.use(cors());
+app.use((0, cors_1.default)({ origin: env_1.ENV.CORS_ORIGIN }));
 app.use(express_1.default.json());
+console.log('DB_URL:', process.env.DATABASE_URL);
 const creds = zod_1.z.object({ email: zod_1.z.string().email(), password: zod_1.z.string().min(6) });
 app.post('/auth/register', async (req, res) => {
     const parsed = creds.safeParse(req.body);
     if (!parsed.success)
-        return res.status(400).json({ error: 'Invalid payload' });
+        return res.status(400).json({ error: 'Invalid email or password. Please try again.' });
     const { email, password } = parsed.data;
     const existing = await prisma_1.prisma.user.findUnique({ where: { email } });
     if (existing)
@@ -32,7 +34,7 @@ app.post('/auth/register', async (req, res) => {
 app.post('/auth/login', async (req, res) => {
     const parsed = creds.safeParse(req.body);
     if (!parsed.success)
-        return res.status(400).json({ error: 'Invalid payload' });
+        return res.status(400).json({ error: 'Invalid email or password. Please try again.' });
     const { email, password } = parsed.data;
     const user = await prisma_1.prisma.user.findUnique({ where: { email } });
     if (!user)
@@ -44,32 +46,37 @@ app.post('/auth/login', async (req, res) => {
     res.json({ token });
 });
 // Simple CRUD for Items (owned by user)
-app.get('/items', auth_1.auth, async (req, res) => {
-    const userId = Number(req.user.sub); // userId is Int
+app.get('/public/items', async (_req, res) => {
     const items = await prisma_1.prisma.item.findMany({
-        where: { userId },
         orderBy: { createdAt: 'desc' },
+        take: 20,
     });
     res.json(items);
 });
 app.post('/items', auth_1.auth, async (req, res) => {
     const userId = Number(req.user.sub);
-    const name = String(req.body?.name || '').trim();
+    const name = typeof req.body?.name === 'string' ? req.body.name.trim() : '';
+    const description = typeof req.body?.description === 'string' ? req.body.description.trim() : null;
     if (!name)
         return res.status(400).json({ error: 'name is required' });
-    const item = await prisma_1.prisma.item.create({ data: { name, userId } });
+    const item = await prisma_1.prisma.item.create({
+        data: { name, description, userId },
+    });
     res.status(201).json(item);
 });
 app.put('/items/:id', auth_1.auth, async (req, res) => {
     const userId = Number(req.user.sub);
     const id = Number(req.params.id);
-    const name = String(req.body?.name || '').trim();
+    const name = typeof req.body?.name === 'string' ? req.body.name.trim() : '';
+    const description = typeof req.body?.description === 'string' ? req.body.description.trim() : null;
+    if (!name)
+        return res.status(400).json({ error: 'name is required' });
     const exists = await prisma_1.prisma.item.findFirst({ where: { id, userId } });
     if (!exists)
         return res.status(404).json({ error: 'Not found' });
     const item = await prisma_1.prisma.item.update({
         where: { id },
-        data: { name },
+        data: { name, description },
     });
     res.json(item);
 });

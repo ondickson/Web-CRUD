@@ -1,0 +1,19 @@
+.account-page {
+  max-width: 600px;
+  margin: 5rem auto;
+  padding: 2rem;
+  text-align: left;
+  font-family: system-ui, sans-serif;
+}
+
+.account-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.account-card p {
+  margin: 0.5rem 0;
+}

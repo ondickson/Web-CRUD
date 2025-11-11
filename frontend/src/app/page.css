@@ -1,64 +1,68 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
- .dashboard {
-  /* border: red 2px solid; */
-  padding: 2rem;
-  width: 100%;
-  font-family: system-ui, sans-serif;
-}
-
-
-.dashboard-header {
+.page-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column; /* ← ensures navbar is on top */
+  min-height: 100vh;
+}
+
+.homepage {
+  flex: 1; /* let content take remaining space */
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(to bottom right, #f9fafc, #f2f5f9);
 }
 
-.nav-links a {
-  margin-right: 1rem;
-  text-decoration: none;
-  color: #2E382E;
+.hero {
+  max-width: 700px;
 }
 
-.register-btn {
-  background: #2E382E;
-  color: white !important;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-}
-
-.register-btn:hover{
-  background-color: #50C9CE;
-  color: #2E382E !important;
-  transition: ease-in-out 0.3s;
-  cursor: pointer;
-}
-
-.dashboard-section {
-  margin-top: 2rem;
-}
-
-.item-list {
-  list-style: none;
-  padding: 0;
-}
-
-.item-card {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 1rem;
+.hero h1 {
+  font-size: 2.8rem;
   margin-bottom: 1rem;
+  color: #111;
 }
 
-.item-card p {
-  margin-top: 4px;
-  color: #666;
+.hero p {
+  color: #555;
+  font-size: 1.15rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
 }
 
-.item-card small {
-  color: #999;
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.primary-btn {
+  background: #0070f3;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.primary-btn:hover {
+  background: #005bd1;
+}
+
+.secondary-btn {
+  color: #0070f3;
+  border: 2px solid #0070f3;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.secondary-btn:hover {
+  background: #0070f3;
+  color: white;
 }

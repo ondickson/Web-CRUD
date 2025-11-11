@@ -5,7 +5,7 @@ import Navbar from './components/Navbar';
 
 export default function Homepage() {
   return (
-    <div className="page-container">
+    <>
       <Navbar />
       <main className="homepage">
         <section className="hero">
@@ -23,6 +23,6 @@ export default function Homepage() {
           </div>
         </section>
       </main>
-    </div>
+    </>
   );
 }

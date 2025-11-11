@@ -19,4 +19,6 @@ export const prisma = new PrismaClient();
 prisma.$queryRawUnsafe(`
   SELECT current_database() AS db, current_user AS usr,
          inet_server_addr() AS host, inet_server_port() AS port
-`).then((r) => console.log('DB session:', r)).catch(console.error);
+`)
+  .then(() => console.log('DB session checked'))
+  .catch(console.error);
