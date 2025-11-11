@@ -100,6 +100,19 @@ app.delete('/items/:id', auth, async (req, res) => {
 });
 
 
+// Authentication test route
+app.get('/auth/me', auth, async (req, res) => {
+  const userId = Number((req as any).user.sub);
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { id: true, email: true, name: true, createdAt: true, updatedAt: true },
+  });
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  res.json({ user });
+});
+
+
+
 app.get('/', (_req, res) => res.json({ ok: true }));
 
 app.listen(ENV.PORT, () => console.log(`API on :${ENV.PORT}`));
