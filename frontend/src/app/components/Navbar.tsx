@@ -225,7 +225,7 @@ export default function Navbar() {
               <p className="mobile-section-title">Browse EfieNow</p>
 
               <Link
-                href="/hotels"
+                href="/nav_menu/rent"
                 className="mobile-link"
                 onClick={() => setMobileOpen(false)}
               >
@@ -233,7 +233,7 @@ export default function Navbar() {
               </Link>
 
               <Link
-                href="/homes"
+                href="/nav_menu/sale"
                 className="mobile-link"
                 onClick={() => setMobileOpen(false)}
               >
@@ -241,7 +241,7 @@ export default function Navbar() {
               </Link>
 
               <Link
-                href="/homes"
+                href="/nav_menu/hotels"
                 className="mobile-link"
                 onClick={() => setMobileOpen(false)}
               >
