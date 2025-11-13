@@ -32,7 +32,9 @@ function displayFrom(user: User | null) {
 export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
   const [open, setOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  
 
   // Load user reliably on mount
   useEffect(() => {
@@ -100,11 +102,13 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', onClickOutside);
   }, [open]);
 
-  function handleLogout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    window.location.href = '/';
-  }
+ function handleLogout() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+  setMobileOpen(false);
+  window.location.href = '/';
+}
+
 
   const { label, initial } = displayFrom(user);
 
@@ -171,7 +175,112 @@ export default function Navbar() {
             </>
           )}
         </div>
+        {/* Mobile hamburger (shown only on small screens via CSS) */}
+        <button
+          className="nav-toggle"
+          aria-label="Open menu"
+          onClick={() => setMobileOpen(true)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
       </div>
+            {mobileOpen && (
+        <div
+          className="mobile-menu-overlay"
+          onClick={() => setMobileOpen(false)}
+        >
+          <div
+            className="mobile-menu"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="mobile-menu-top">
+              <div className="mobile-menu-greeting">
+                {user ? `Hello, ${user.name || user.email}` : 'Menu'}
+              </div>
+              <button
+                className="mobile-close"
+                aria-label="Close menu"
+                onClick={() => setMobileOpen(false)}
+              >
+                <span />
+                <span />
+              </button>
+            </div>
+
+            {!user && (
+              <button
+                className="mobile-signin-btn"
+                onClick={() => {
+                  setMobileOpen(false);
+                  window.location.href = '/auth';
+                }}
+              >
+                Sign in / Create account
+              </button>
+            )}
+
+            <div className="mobile-menu-section">
+              <p className="mobile-section-title">Browse EfieNow</p>
+
+              <Link
+                href="/hotels"
+                className="mobile-link"
+                onClick={() => setMobileOpen(false)}
+              >
+                <span>For Rent</span>
+              </Link>
+
+              <Link
+                href="/homes"
+                className="mobile-link"
+                onClick={() => setMobileOpen(false)}
+              >
+                <span>For Sale</span>
+              </Link>
+
+              <Link
+                href="/homes"
+                className="mobile-link"
+                onClick={() => setMobileOpen(false)}
+              >
+                <span>Hotels</span>
+              </Link>
+            </div>
+
+            <div className="mobile-menu-section">
+              <p className="mobile-section-title">Account</p>
+
+              <Link
+                href="/bookings"
+                className="mobile-link"
+                onClick={() => setMobileOpen(false)}
+              >
+                <span>My bookings</span>
+              </Link>
+
+              <Link
+                href="/saved"
+                className="mobile-link"
+                onClick={() => setMobileOpen(false)}
+              >
+                <span>Saved properties list</span>
+              </Link>
+
+              {user && (
+                <button
+                  className="mobile-link mobile-link-danger"
+                  onClick={handleLogout}
+                >
+                  <span>Sign out</span>
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
     </nav>
   );
 }
