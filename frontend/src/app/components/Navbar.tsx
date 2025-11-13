@@ -120,9 +120,9 @@ export default function Navbar() {
         </div>
 
         <ul className="nav-links">
-          <li><Link href="/hotels">For Rent</Link></li>
-          <li><Link href="/homes">For Sale</Link></li>
-          <li><Link href="/homes">Hotels</Link></li>
+          <li><Link href="/nav_menu/rent">For Rent</Link></li>
+          <li><Link href="/nav_menu/sale">For Sale</Link></li>
+          <li><Link href="/nav_menu/hotels">Hotels</Link></li>
         </ul>
 
         <div className="nav-actions" ref={menuRef}>
