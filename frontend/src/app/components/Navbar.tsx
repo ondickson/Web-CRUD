@@ -112,12 +112,13 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="nav-container">
         <div className="nav-logo">
-          <Link href="/">Efie Now</Link>
+          <Link href="/"><img src="./efienow.png" alt="logo"/></Link>
         </div>
 
         <ul className="nav-links">
-          <li><Link href="/hotels">Hotels</Link></li>
-          <li><Link href="/homes">Homes</Link></li>
+          <li><Link href="/hotels">For Rent</Link></li>
+          <li><Link href="/homes">For Sale</Link></li>
+          <li><Link href="/homes">Hotels</Link></li>
         </ul>
 
         <div className="nav-actions" ref={menuRef}>
@@ -166,7 +167,7 @@ export default function Navbar() {
           ) : (
             <>
               <Link href="/auth" className="nav-login">Sign In</Link>
-              <Link href="/register" className="nav-register">Create Account</Link>
+              <Link href="/register" className="nav-register">Sign Up</Link>
             </>
           )}
         </div>

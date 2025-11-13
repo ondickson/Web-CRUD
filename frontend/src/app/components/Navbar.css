@@ -15,11 +15,8 @@
   align-items: center;
   justify-content: space-between;
 }
-.nav-logo a {
-  text-decoration: none;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #0070f3;
+.nav-logo {
+  width: 100px;
 }
 .nav-links {
   list-style: none;
@@ -34,7 +31,7 @@
   font-weight: 500;
 }
 .nav-links a:hover {
-  color: #0070f3;
+  color: #ff6b3d;
 }
 .nav-actions {
   display: flex;
@@ -45,20 +42,30 @@
 
 /* Auth buttons */
 .nav-login {
-  color: #0070f3;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  color: #666;
   text-decoration: none;
   font-weight: 500;
 }
+
+.nav-login:hover {
+  background: #ee6338;
+  border-color: #ff6b3d;
+  color: white;
+}
 .nav-register {
-  background: #0070f3;
+  background: #ff6b3d;
   color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
   text-decoration: none;
   font-weight: 500;
 }
 .nav-register:hover {
-  background: #005bd1;
+  background: #ee6338;
 }
 
 /* Account trigger */

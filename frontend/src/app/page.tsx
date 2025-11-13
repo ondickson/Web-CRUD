@@ -186,7 +186,7 @@ export default function Homepage() {
             {/* WHY CHOOSE HOTELBOOK */}
       <section className="section section-why">
         <div className="section-header">
-          <h2>Why Choose HotelBook</h2>
+          <h2>Why Choose Efie Now</h2>
           <p>We make your booking experience seamless</p>
         </div>
 
