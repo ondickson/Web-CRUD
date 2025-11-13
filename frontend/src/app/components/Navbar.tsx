@@ -116,7 +116,7 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="nav-container">
         <div className="nav-logo">
-          <Link href="/"><img src="./efienow.png" alt="logo"/></Link>
+          <Link href="/"><img src="/efienow.png" alt="EfieNow logo"/></Link>
         </div>
 
         <ul className="nav-links">

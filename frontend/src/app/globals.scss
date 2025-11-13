@@ -87,3 +87,23 @@ h1 span {
     font-size: 1rem;
   }
 }
+
+
+/* NAVBAR Additional Styles */
+.page-main {
+  min-height: 100vh;
+  padding: 6rem 1.5rem 3rem;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.page-hero h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.page-hero p {
+  color: #555;
+  margin-top: 0.3rem;
+}
+

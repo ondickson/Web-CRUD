@@ -1,6 +1,6 @@
 // app/nav_menu/sale/page.tsx
 import React from 'react';
-import Navbar from '@/app/components/Navbar';
+import Navbar from '../../components/Navbar';
 
 export default function SalePage() {
   return (
