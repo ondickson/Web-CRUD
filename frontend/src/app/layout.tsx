@@ -1,5 +1,6 @@
 // src/app/layout.tsx
 import './globals.scss';
+import "./globals.css";
 import React from 'react';
 
 export const metadata = { title: 'EfieNow', description: 'Your trusted platform for houses and apartments for rent in Ghana. Browse thousands of verified long-term rentals and secure your next home in Accra, Tema, and major cities with ease and confidence.' };
