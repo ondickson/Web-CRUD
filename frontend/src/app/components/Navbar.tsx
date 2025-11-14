@@ -253,7 +253,7 @@ export default function Navbar() {
               <p className="mobile-section-title">Account</p>
 
               <Link
-                href="/bookings"
+                href="/account/bookings"
                 className="mobile-link"
                 onClick={() => setMobileOpen(false)}
               >
