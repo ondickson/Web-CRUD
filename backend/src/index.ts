@@ -7,6 +7,8 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { z } from 'zod';
 import { auth } from './auth';
+import type { User as PrismaUser } from '@prisma/client';
+
 
 const app = express();
 // app.use(cors());
@@ -15,6 +17,67 @@ app.use(express.json());
 
 console.log('DB_URL:', process.env.DATABASE_URL);
 const creds = z.object({ email: z.string().email(), password: z.string().min(6) });
+
+app.post('/auth/social-login', async (req, res) => {
+  try {
+    const { email, name, image, provider, providerAccountId } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ error: 'Email is required' });
+    }
+
+    // Tell TS exactly what type this is
+    let user: PrismaUser | null = await prisma.user.findUnique({ where: { email } });
+
+    if (!user) {
+      const randomPassword = await bcrypt.hash(
+        jwt.sign({ email, ts: Date.now() }, ENV.JWT_SECRET),
+        10
+      );
+
+      user = await prisma.user.create({
+        data: {
+          email,
+          password: randomPassword,
+          name,
+          image,
+          provider,
+          providerAccountId,
+        },
+      });
+    } else {
+      user = await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          name: name ?? user.name,
+          image: image ?? user.image,
+          provider: provider ?? user.provider,
+          providerAccountId: providerAccountId ?? user.providerAccountId,
+        },
+      });
+    }
+
+    const token = jwt.sign(
+      { sub: user.id, email: user.email },
+      ENV.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    return res.json({
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        image: user.image,
+        provider: user.provider,
+      },
+      token,
+    });
+  } catch (err) {
+    console.error('social-login error', err);
+    return res.status(500).json({ error: 'Server error' });
+  }
+});
 
 
 app.post('/auth/register', async (req, res) => {
@@ -98,6 +161,7 @@ app.delete('/items/:id', auth, async (req, res) => {
   await prisma.item.delete({ where: { id } });
   res.status(204).send();
 });
+
 
 
 // Authentication test route

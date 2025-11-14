@@ -14,4 +14,7 @@ export function auth(req: Request, res: Response, next: NextFunction) {
   } catch {
     res.status(401).json({ error: 'Invalid token' });
   }
+
+  
 }
+

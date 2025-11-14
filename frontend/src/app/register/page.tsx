@@ -3,8 +3,9 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import '../auth/auth.css';
+import './register.css';
 import Navbar from '../components/Navbar';
+import { signIn } from "next-auth/react";
 
 const API = process.env.NEXT_PUBLIC_API_URL;
 
@@ -44,6 +45,9 @@ export default function RegisterPage() {
       <Navbar />
       <main className="auth-container">
         <h1>Create Account</h1>
+        <button onClick={() => signIn("google")}>
+          Sign in with Google
+        </button>
         <form onSubmit={handleRegister} className="auth-form">
           <input
             type="email"
