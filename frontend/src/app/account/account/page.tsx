@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import './account.css';
-import Navbar from '../components/Navbar';
+import Navbar from '../../components/Navbar';
 
 type User = { email: string; name?: string };
 

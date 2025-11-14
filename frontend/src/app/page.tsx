@@ -236,7 +236,7 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* FOOTER */}
+      {/* FOOTER
       <footer className="footer">
         <div className="footer-inner">
           <div className="footer-top">
@@ -276,7 +276,7 @@ export default function Homepage() {
             <span>© 2025 Efie Now. All rights reserved.</span>
           </div>
         </div>
-      </footer>
+      </footer> */}
 
 
       </main>

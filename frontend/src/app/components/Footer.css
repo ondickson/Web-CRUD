@@ -1,0 +1,99 @@
+/* FOOTER */
+
+.footer {
+  background: #f8fafc;
+  border-top: 1px solid #e5e7eb;
+  padding: 2.7rem 1.5rem 2.4rem;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 2.5rem;
+  margin-bottom: 1.8rem;
+}
+
+.footer-brand {
+  display: flex;
+  gap: 0.9rem;
+  max-width: 320px;
+}
+
+.footer-logo-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  background: #0b4f7d;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.footer-logo-text {
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.15rem;
+}
+
+.footer-columns {
+  display: flex;
+  gap: 3rem;
+}
+
+.footer-column h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.6rem;
+}
+
+.footer-column a {
+  display: block;
+  margin-bottom: 0.35rem;
+  text-decoration: none;
+  color: #6b7280;
+  font-size: 0.88rem;
+}
+
+.footer-column a:hover {
+  color: #111827;
+}
+
+.footer-bottom {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 0.9rem;
+  font-size: 0.8rem;
+  color: #9ca3af;
+  text-align: center;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .footer-top {
+    flex-direction: column;
+  }
+
+  .footer-columns {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+
+
+  .footer-columns {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+}

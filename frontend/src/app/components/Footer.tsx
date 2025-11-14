@@ -1,4 +1,6 @@
 // app/components/Footer.tsx
+import React from 'react';
+import './Footer.css';
 
 export default function Footer() {
   return (
@@ -16,23 +18,23 @@ export default function Footer() {
           <div className="footer-columns">
             <div className="footer-column">
               <h4>Company</h4>
-              <a href="#">About</a>
-              <a href="#">Careers</a>
-              <a href="#">Press</a>
+              <a href="/footer_link/company/about">About</a>
+              <a href="/footer_link/company/careers">Careers</a>
+              <a href="/footer_link/company/press">Press</a>
             </div>
 
             <div className="footer-column">
               <h4>Support</h4>
-              <a href="#">Help Center</a>
-              <a href="#">Contact</a>
-              <a href="#">Privacy Policy</a>
+              <a href="/footer_link/support/help_center">Help Center</a>
+              <a href="/footer_link/support/contact">Contact</a>
+              <a href="/footer_link/support/privacy">Privacy Policy</a>
             </div>
 
             <div className="footer-column">
               <h4>Explore</h4>
-              <a href="#">Destinations</a>
-              <a href="#">Inspiration</a>
-              <a href="#">Blog</a>
+              <a href="/footer_link/Explore/destinations">Destinations</a>
+              <a href="/footer_link/Explore/inspiration">Inspiration</a>
+              <a href="/footer_link/Explore/blog">Blog</a>
             </div>
           </div>
         </div>
