@@ -1,0 +1,46 @@
+.support-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 3rem;
+}
+
+.support-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.support-hero h1 {
+  font-size: 2.3rem;
+  font-weight: 700;
+}
+
+.support-hero p {
+  color: #555;
+}
+
+.privacy-section {
+  margin-bottom: 2.5rem;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.privacy-section h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.privacy-section p,
+.privacy-section ul {
+  color: #444;
+  line-height: 1.6;
+}
+
+.privacy-section ul {
+  padding-left: 1.5rem;
+}
+
+.privacy-section li {
+  margin-bottom: 0.35rem;
+}

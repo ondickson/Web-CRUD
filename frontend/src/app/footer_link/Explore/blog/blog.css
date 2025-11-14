@@ -1,0 +1,46 @@
+.explore-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 3rem;
+}
+
+.explore-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.explore-hero h1 {
+  font-size: 2.3rem;
+  font-weight: 700;
+}
+
+.explore-hero p {
+  color: #555;
+}
+
+.explore-section h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.explore-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.explore-card {
+  background: #fff;
+  padding: 1.3rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.explore-card h3 {
+  margin-bottom: 0.4rem;
+  font-size: 1.25rem;
+}
+
+.explore-card p {
+  color: #444;
+  line-height: 1.6;
+}

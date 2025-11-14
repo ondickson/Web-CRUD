@@ -1,0 +1,68 @@
+.support-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 3rem;
+}
+
+.support-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.support-hero h1 {
+  font-size: 2.3rem;
+  font-weight: 700;
+}
+
+.support-hero p {
+  color: #555;
+}
+
+.support-section {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-row label {
+  font-weight: 500;
+}
+
+.form-row input,
+.form-row textarea {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.95rem;
+}
+
+.form-row input:focus,
+.form-row textarea:focus {
+  outline: none;
+  border-color: #ff7a3c;
+  box-shadow: 0 0 0 1px rgba(255, 122, 60, 0.3);
+}
+
+.contact-submit {
+  margin-top: 0.5rem;
+  padding: 0.8rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  background: #ff7a3c;
+  color: #fff;
+}
