@@ -55,8 +55,8 @@ export default function LoginPage() {
           {/* GOOGLE BUTTON */}
           <button
             type="button"
-            className="btn-social btn-google"
-            onClick={() => signIn('google', { callbackUrl: '/' })}
+            className="btn-social btn-google googleSignin"
+            onClick={() => signIn("google")}
           >
             <span className="btn-social-icon">
               <span className="google-circle">G</span>
